@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title> -精确查找 </title>
+</head>
+<body>
+<p>精确查找</p>
+ 
+ 
+   <div>  {{ error }} </div>
+<form action="/get/" method="post">
+ 	{% csrf_token %}
+
+
+	<div class="tag">
+	{{ form.tag }}	
+	</div>
+
+	<input id="sub" type="submit" value="Submit" >
+</form>
+ 
+ 
+</body>
+</html>

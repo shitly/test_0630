@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title%}
+<title> 学生{{ student.username }}的管理后台 | 课程 </title>
+{% endblock %}
+
+
+{% block body %}
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+
+                    <div class="ibox-title">
+                        <h5>所有课程</h5>
+                        <div class="ibox-tools">
+                            <a href="/ciso/" class="btn btn-primary btn-xs">选择新课程</a>
+                        </div>
+                    </div>
+
+                    <div class="ibox-content">
+
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                </a href="" ><button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button></a>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入课程名称" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-list">
+                            <table class="table table-hover">
+                                <tbody>
+                                    
+									{% for x in res %}
+                                    <tr>
+                                        <td class="project-status">
+                                            <span>{{ x.course.tag }}</span>
+                                        </td>
+
+                                        <td class="project-status">
+                                            {% if x.course.state %}
+                                            <span class="label label-primary">进行中
+                                            {% else %}
+                                            <span class="label label-default">已取消
+                                            {% endif %}
+                                        </td>
+										
+										<td class="project-status">
+                                            <span>{{ x.course.teacher }}</span>
+                                        </td>
+										
+                                        <td class="project-title">
+                                            <a href="/course/{{ x.course.id }}">{{ x.course.name }}</a>
+                                            <br/>
+                                            <small>创建于{{ x.course.start_date | date }}</small>
+                                        </td>
+                                        <td class="project-completion">
+                                            <small>当前进度： {{x.course_schedule}}%</small>
+                                            <div class="progress progress-mini">
+                                                <div style="width: {{x.course_schedule}}%;" class="progress-bar"></div>
+                                            </div>
+                                        </td>
+                                
+										<td class="project-status">
+                                            <span>学分: {{ x.score }}</span>
+                                        </td>
+										
+                                        <td class="project-actions">
+                                            <a href="/course/{{ x.course.id }}" class="btn btn-white btn-sm"> 查看 </a>
+                                            <!-- 通过查看后进入对应页面会进行记录 -->
+                                        </td>
+                                    </tr>
+									{% endfor %}
+
+                                    </tbody>
+                                </table>
+      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- 全局js -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+<!--
+    <script>
+        $(document).ready(function(){
+
+            $('#loading-example-btn').click(function () {
+                btn = $(this);
+                simpleLoad(btn, true)
+
+                // Ajax example
+//                $.ajax().always(function () {
+//                    simpleLoad($(this), false)
+//                });
+
+                simpleLoad(btn, false)
+            });
+        });
+
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith(" Loading");
+            } else {
+                setTimeout(function () {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith(" Refresh");
+                }, 2000);
+            }
+        }
+    </script>
+
+
+-->
+    </body>
+
+{% endblock %}
